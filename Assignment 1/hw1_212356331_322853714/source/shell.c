@@ -18,7 +18,18 @@ int main() {
             break;
         }
         
-        split_to_args(line);
+        command *cmd;
+        if(split_to_args(line, cmd) == -1) { // invalid command if the arguments are greather than the MAX_ARG and if the command does'nt exist/ 
+            
+            printf("hw1shell: invalid command");
+            fflush(stdout);
+            continue;
+        } 
+
+        if(cmd->argc == 0) // an empty command, we need to continue
+            continue;
+
+
         
     }
 
