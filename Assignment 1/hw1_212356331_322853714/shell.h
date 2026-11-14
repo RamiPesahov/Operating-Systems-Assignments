@@ -5,6 +5,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <stdbool.h>
+#include <unistd.h>
 
 #define MAX_LINE_LEN 1024
 #define MAX_ARG 64 
@@ -18,8 +20,8 @@ typedef struct {
     int is_bg; // 1 if it's backgroung and 0 it is frontend 
 } command;
 
-int split_to_args(char *line, command *cmd); // takes a command from user, analyzing and extracting its arguments
- 
+bool split_to_args(char *line, command *cmd); // takes a command from user, analyzing and extracting its arguments
+bool handle_command(command *cmd); 
 
 
 #endif

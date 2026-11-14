@@ -1,8 +1,8 @@
 #include "shell.h"
 
 
-int split_to_args(char *line, command *cmd) {
-    
+bool split_to_args(char *line, command *cmd) {
+
     // initalize empty command
 
     cmd->argc = 0;
@@ -26,7 +26,7 @@ int split_to_args(char *line, command *cmd) {
     
     // getting every word from the command line
 
-    char *word = strtok(line, " \t\r\n"); // removing backspace, tab, and end of sentence including windows 
+    char *word = strtok(line, " \t\r\n"); // removing space, tab, and end of sentence including windows 
     while(word != NULL) {
 
         if(cmd->argc == MAX_ARG) // more than 64 parameters
@@ -37,8 +37,10 @@ int split_to_args(char *line, command *cmd) {
         word = strtok(NULL, " \t\r\n"); 
     }
 
-    // checking whether its a background command and if it is, remove the symbol and keep the command information
+    if(cmd->argc == 0) // its an empty command, it's valid command
+        return 0;
 
+    // checking whether its a background command and if it is, remove the symbol and keep the command information
     char *last_argument = cmd->args[cmd->argc - 1];
     int last_argument_len = strlen(last_argument);
 
@@ -62,4 +64,35 @@ int split_to_args(char *line, command *cmd) {
     } 
     
     return 0;
+}
+
+bool handle_command(command *cmd) {
+
+    char *command_type = cmd->args[0]; 
+    
+    printf("%s\n",command_type);
+
+    if(strcmp(command_type, "cd") == 0) {
+
+        char *path = cmd->args[1];
+        int cd_result = chdir(path);        
+        
+        if(cd_result == 1) // if the cd command was unsucessful because of a variant command, like cd to a non-existing directory
+            printf("hw1shell: invalid command\n");
+        
+    }
+    else if(strcmp(command_type, "jobs") == 0) {
+
+
+
+    }
+    else if(strcmp(command_type, "exit") == 0) {
+
+        return true; // we want to exit so should_exit = true
+    }
+    else {
+
+        system(command_type);
+    }
+    return false; 
 }
