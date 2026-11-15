@@ -39,6 +39,7 @@ void reap_finished_bg_jobs(void) {
             }
             else if(res == -1) {
                 system_call_error("waitpid", errno);
+                bg_jobs[i].active = false; // free the slot so it does'nt stay stuck
             }
         }
     }
