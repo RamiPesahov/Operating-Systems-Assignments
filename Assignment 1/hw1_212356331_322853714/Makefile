@@ -1,15 +1,17 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -g
 
-TARGET = hw1shell
-SRCS = shell.c parser.c
-HDRS = shell.h
+hw1shell: shell.o parser.o commands.o
+	$(CC) $(CFLAGS) -o hw1shell shell.o parser.o commands.o
 
-all: $(TARGET)
+shell.o: shell.c shell.h
+	$(CC) $(CFLAGS) -c shell.c
 
-$(TARGET): $(SRCS) $(HDRS)
-	$(CC) $(CFLAGS) -o $(TARGET) $(SRCS)
+parser.o: parser.c shell.h
+	$(CC) $(CFLAGS) -c parser.c
 
-# Rule to clean up build artifacts
+commands.o: commands.c shell.h
+	$(CC) $(CFLAGS) -c commands.c
+
 clean:
-	rm -f $(TARGET)
+	rm -f hw1shell *.o

@@ -22,9 +22,17 @@ typedef struct {
     int is_bg; // 1 if it's backgroung and 0 it is frontend 
 } command;
 
+typedef struct {
+    pid_t pid;
+    char raw_command[MAX_LINE_LEN + 1];
+    bool active;
+} bg_job;
+
 bool split_to_args(char *line, command *cmd); // takes a command from user, analyzing and extracting its arguments
 bool handle_command(command *cmd); 
 void system_call_error(char *system_call_name, int error);
+void reap_finished_bg_jobs(void);
+void reap_all_bg_child_processes(void);
 
 
 #endif

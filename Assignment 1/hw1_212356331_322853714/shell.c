@@ -16,13 +16,12 @@ int main() {
         if(fgets(line, sizeof(line), stdin) == NULL) { // end of input - acts like exit command
 
             printf("\n");
-            // wait_for_all_bg_commands(); // we need to reap all the child processes possibly running in the background
+            reap_all_bg_child_processes(); // we need to reap all the child processes possibly running in the background
             break;
         }
         
         command cmd;
-        if(split_to_args(line, &cmd) == false) { // invalid command if the arguments are greather than the MAX_ARG and if the command does'nt exist/ 
-            
+        if(split_to_args(line, &cmd) == false) { // invalid command if the arguments are greather than the MAX_ARG and if the command does'nt exist
             printf("hw1shell: invalid command\n");
         } 
 
@@ -32,8 +31,7 @@ int main() {
         }
     
         if (!should_exit) {
-            
-            // reap background jobs
+            reap_finished_bg_jobs(); // reap background jobs
         }
         
     }

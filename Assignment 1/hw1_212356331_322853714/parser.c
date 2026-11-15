@@ -16,8 +16,10 @@ bool split_to_args(char *line, command *cmd) {
     // cmd -> args[argc - 1] says whether its background or no
 
     int len = strlen(line);
-    if(len > 0 && line[len - 1] == '\n') // getting rid of the \n in the end of command
+    while (len > 0 && (line[len - 1] == '\n' || line[len - 1] == '\r')) {
         line[len - 1] = '\0';
+        len--;
+    }
     
     // saving the raw command before extracting the information of the command
 
