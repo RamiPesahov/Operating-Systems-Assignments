@@ -21,20 +21,19 @@ int main() {
         }
         
         command cmd;
-        if(split_to_args(line, &cmd) == -1) { // invalid command if the arguments are greather than the MAX_ARG and if the command does'nt exist/ 
+        if(split_to_args(line, &cmd) == false) { // invalid command if the arguments are greather than the MAX_ARG and if the command does'nt exist/ 
             
             printf("hw1shell: invalid command\n");
         } 
 
-        else if(cmd.argc == 0) // an empty command, we need to continue
-            continue;
+        else if(cmd.argc > 0) { // a regualr command
 
-        else // which means cmd.args > 0 so we have a regular command so far
             should_exit = handle_command(&cmd);
-
+        }
+    
         if (!should_exit) {
             
-            
+            // reap background jobs
         }
         
     }

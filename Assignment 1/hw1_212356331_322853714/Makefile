@@ -3,9 +3,7 @@ CFLAGS = -Wall -Wextra -g
 
 TARGET = hw1shell
 SRCS = shell.c parser.c
-HDRS = $(wildcard *.h)
-
-.PHONY: all clean
+HDRS = shell.h
 
 all: $(TARGET)
 

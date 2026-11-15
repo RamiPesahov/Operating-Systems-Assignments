@@ -7,6 +7,8 @@
 #include <errno.h>
 #include <stdbool.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 #define MAX_LINE_LEN 1024
 #define MAX_ARG 64 
@@ -22,6 +24,7 @@ typedef struct {
 
 bool split_to_args(char *line, command *cmd); // takes a command from user, analyzing and extracting its arguments
 bool handle_command(command *cmd); 
+void system_call_error(char *system_call_name, int error);
 
 
 #endif
