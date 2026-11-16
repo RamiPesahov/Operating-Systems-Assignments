@@ -78,7 +78,8 @@ bool handle_command(command *cmd) {
         
     }
     else if(strcmp(command_type, "jobs") == 0) {
-
+        
+        // Design decision: reject "jobs" with extra arguments or '&' as invalid command
         if(cmd->is_bg || cmd->argc != 1) {
             printf("hw1shell: invalid command\n");
             return false;
@@ -92,6 +93,7 @@ bool handle_command(command *cmd) {
     }
     else if(strcmp(command_type, "exit") == 0) {
 
+        // Design decision: reject 'exit' with extra arguments or '&' as invalid command
         if(cmd->is_bg || cmd->argc != 1) {
             printf("hw1shell: invalid command\n");
             return false;
